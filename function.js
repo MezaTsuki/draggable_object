@@ -7,7 +7,7 @@ let mouseStartPosY = 0;
 let boxStartPosX = 0;
 let boxStartPosY = 0;
 
-//WOBBLY UPDATE ---
+// # --- WOBBLY UPDATE ---
 let mouseNowX = 0;
 let mouseNowY = 0;
 let mouseDelayX = 0;
@@ -24,7 +24,7 @@ function setMousePos () {
     mouseStartPosY = event.clientY;
 }
 
-//WOBBLY UPDATE ---
+// # --- WOBBLY UPDATE ---
 function setMouseNow() {
     mouseNowX = event.clientX;
     mouseNowY = event.clientY;
@@ -39,7 +39,7 @@ dragBox.addEventListener("mousedown", event => {
     setBoxPos();
     // console.log(mouseStartPosX, mouseStartPosY);
 
-    //WOBBLY UPDATE ---
+    // # --- WOBBLY UPDATE ---
     dragBox.style.transition = '0.1s ease';
     wobbleTimer = setInterval(() => {
         mouseDelayX = mouseNowX;
@@ -49,7 +49,7 @@ dragBox.addEventListener("mousedown", event => {
 document.addEventListener("mouseup", event => {
     isHolding = false;
     
-    //WOBBLY UPDATE ---
+    // # --- WOBBLY UPDATE ---
     clearTimers();
     dragBox.style.transition = '0.5s ease-out';
     dragBox.style.padding = '0px';
@@ -57,7 +57,7 @@ document.addEventListener("mouseup", event => {
 document.addEventListener("mouseleave", event => {
     isHolding = false;
 
-    //WOBBLY UPDATE ---
+    // # --- WOBBLY UPDATE ---
     clearTimers();
     dragBox.style.transition = '0.5s ease-out';
     dragBox.style.padding = '0px';
@@ -70,7 +70,7 @@ document.addEventListener("mousemove", event => {
     dragBox.style.left = moveX;
     dragBox.style.top = moveY;
 
-    //WOBBLY UPDATE ---
+    // # --- WOBBLY UPDATE ---
     setMouseNow();
     dragBox.style.paddingLeft = (Math.max(0, event.clientX - mouseDelayX)) + 'px';
     dragBox.style.paddingRight = (Math.max(0, mouseDelayX - event.clientX)) + 'px';
