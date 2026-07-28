@@ -2,35 +2,65 @@
 const dragBox = document.getElementById("dragBox");
 let DBstyle = getComputedStyle(dragBox);
 let isHolding = false;
-let mouseStartPosX = 0;
-let mouseStartPosY = 0;
+let mouseStartPosX = 0;     
+let mouseStartPosY = 0;     
 let boxStartPosX = 0;
 let boxStartPosY = 0;
+
+//WOBBLY UPDATE ---
+let mouseNowX = 0;
+let mouseNowY = 0;
+let mouseDelayX = 0;
+let mouseDelayY = 0;
+const boxWidth = parseInt(DBstyle.width);
+const boxHeight = parseInt(DBstyle.height);
 
 function setBoxPos () {
     boxStartPosX = parseInt(DBstyle.left);
     boxStartPosY = parseInt(DBstyle.top);
-    // console.log(`Left: ${boxStartPosX}, Top: ${boxStartPosY}`);
 }
 function setMousePos () {
     mouseStartPosX = event.clientX;
     mouseStartPosY = event.clientY;
-    // console.log(`Left: ${mouseStartPosX}, Top: ${mouseStartPosY}`);
+}
+
+//WOBBLY UPDATE ---
+function setMouseNow() {
+    mouseNowX = event.clientX;
+    mouseNowY = event.clientY;
+}
+function clearTimers () {
+    clearInterval(wobbleTimer);
 }
 
 dragBox.addEventListener("mousedown", event => {
     isHolding = true;
     setMousePos();
     setBoxPos();
-    console.log(mouseStartPosX, mouseStartPosY);
+    // console.log(mouseStartPosX, mouseStartPosY);
+
+    //WOBBLY UPDATE ---
+    dragBox.style.transition = '0.1s ease';
+    wobbleTimer = setInterval(() => {
+        mouseDelayX = mouseNowX;
+        mouseDelayY = mouseNowY;
+    }, 40);
 });
 document.addEventListener("mouseup", event => {
     isHolding = false;
-    setMousePos();
+    
+    //WOBBLY UPDATE ---
+    clearTimers();
+    dragBox.style.transition = '0.5s ease-out';
+    dragBox.style.padding = '0px';
 });
 document.addEventListener("mouseleave", event => {
     isHolding = false;
-    setMousePos();
+
+    //WOBBLY UPDATE ---
+    clearTimers();
+    dragBox.style.transition = '0.5s ease-out';
+    dragBox.style.padding = '0px';
 });
 
 document.addEventListener("mousemove", event => {
@@ -39,4 +69,11 @@ document.addEventListener("mousemove", event => {
     const moveY = (boxStartPosY + (event.clientY - mouseStartPosY)) + 'px'
     dragBox.style.left = moveX;
     dragBox.style.top = moveY;
+
+    //WOBBLY UPDATE ---
+    setMouseNow();
+    dragBox.style.paddingLeft = (Math.max(0, event.clientX - mouseDelayX)) + 'px';
+    dragBox.style.paddingRight = (Math.max(0, mouseDelayX - event.clientX)) + 'px';
+    dragBox.style.paddingTop = (Math.max(0, event.clientY - mouseDelayY)) + 'px';
+    dragBox.style.paddingBottom = (Math.max(0, mouseDelayY - event.clientY)) + 'px';
 });
