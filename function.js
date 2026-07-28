@@ -10,8 +10,8 @@ let boxStartPosY = 0;
 // # --- WOBBLY UPDATE ---
 let mouseNowX = 0;
 let mouseNowY = 0;
-let mouseDelayX = 0;
-let mouseDelayY = 0;
+let mouseDelayX = (parseInt(DBstyle.left) + (parseInt(DBstyle.width)/2));
+let mouseDelayY = (parseInt(DBstyle.top) + (parseInt(DBstyle.height)/2));
 const boxWidth = parseInt(DBstyle.width);
 const boxHeight = parseInt(DBstyle.height);
 
