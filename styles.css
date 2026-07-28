@@ -17,7 +17,7 @@ body{
     align-items: center;
     justify-content: center;
     position: relative;
-    top: 0; left: 0;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
 
     user-select: none;
     cursor: pointer;
