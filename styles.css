@@ -1,0 +1,32 @@
+
+html{
+    font-family: "quicksand";
+}
+body{
+ margin: 0;
+}
+
+#dragBox{
+    --boxWidth: 200px;
+    --boxHeight: 200px;
+    width: var(--boxWidth);
+    height: var(--boxHeight);
+    border: 2px dotted black;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 0; left: 0;
+
+    user-select: none;
+    cursor: pointer;
+}
+
+@font-face{
+    font-family: 'quicksand';
+    src: url("Quicksand.ttf");
+}
+@media (max-width: 1000px){
+
+}
