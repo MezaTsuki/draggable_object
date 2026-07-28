@@ -11,7 +11,7 @@ body{
     --boxHeight: 200px;
     width: var(--boxWidth);
     height: var(--boxHeight);
-    border: 2px dotted black;
+    border: 2px dotted black; border-radius: 10%;
 
     display: flex;
     align-items: center;
