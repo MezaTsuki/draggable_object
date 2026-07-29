@@ -8,8 +8,13 @@
 <body>
 
     <div id = "dragBox">
-        <h1>DRAG</h1>
+        <h1>氷</h1>
     </div>
 
-    <script src = "function.js"></script> <!-- if separate css file is used -->
+    <script type="importmap">
+    {
+        "imports": { "html2canvas": "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/+esm" }
+    }
+    </script>
+    <script type = "module" src = "/function.js"></script> <!-- if separate css file is used -->
 </body>

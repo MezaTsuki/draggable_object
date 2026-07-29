@@ -1,6 +1,8 @@
+import html2canvas from 'html2canvas';
 
 const dragBox = document.getElementById("dragBox");
 let DBstyle = getComputedStyle(dragBox);
+let windowProp = getComputedStyle(document.body);
 let isHolding = false;
 let mouseStartPosX = 0;     
 let mouseStartPosY = 0;     
@@ -76,4 +78,53 @@ document.addEventListener("mousemove", event => {
     dragBox.style.paddingRight = (Math.max(0, mouseDelayX - event.clientX)) + 'px';
     dragBox.style.paddingTop = (Math.max(0, event.clientY - mouseDelayY)) + 'px';
     dragBox.style.paddingBottom = (Math.max(0, mouseDelayY - event.clientY)) + 'px';
+});
+
+// # SLIDE TRANSITION CONCEPT ___
+document.addEventListener("mousedown", event => {
+
+    const container = document.createElement('div');
+    container.id = "screenbutt";
+    container.style.cssText = `
+        position: fixed; top: 0;
+        overflow: hidden;
+        height: 100%; width: 100%;
+        transition: 0.2s;
+    `; 
+    document.body.appendChild(container);
+
+    html2canvas(document.body).then(canvas => {
+        const link = document.createElement('a');
+
+        const img = new Image();
+        img.src = canvas.toDataURL("image/png");
+        img.alt = "screenshot";
+        img.style.cssText = `
+            position: absolute; top: 0;
+            height: 100vh; 
+            width: 100vw;
+        `;
+        container.appendChild(img);
+        let buttscreen = img;
+        let screenbutt = container;
+        
+        let imgWidth = parseInt(windowProp.width);
+        const slideInterval = imgWidth/10;
+        const slideTran = setInterval(() => {
+            imgWidth -= slideInterval;
+            screenbutt.style.width = imgWidth + 'px';
+            console.log("blah");
+        }, 100);
+        setTimeout(() => {
+            buttscreen.remove();
+            screenbutt.remove();
+            clearInterval(slideTran);
+        }, 1000);
+
+        /* todo:  ---DOWNLOAD LINES---
+        *          link.download = 'whatever.png';
+        *          link.href = canvas.toDataURL("image/png");
+        *          link.click();
+        */ 
+    });
 });
