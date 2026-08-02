@@ -3,6 +3,7 @@
     <link rel = "icon" type = "image/x-icon" href = "">
     <title> Wobbly DragBox </title>
     <link rel="stylesheet" href="styles.css"> <!-- if separate css file is used -->
+    
 </head>
 <!--  --- Body Area ---  -->
 <body>
@@ -11,10 +12,23 @@
         <h1>氷</h1>
     </div>
 
+    <input type = "radio" name = "theme" id = "lightTheme">
+    <input type = "radio" name = "theme" id = "darkTheme" checked>
+
+    <div class =  "toolKit">
+
+        <input type = "checkbox" id = "tkbRadio">
+        <label for = "tkbRadio" class = "toolKitButton" > > </label>
+
+        <div id = "themeButton">
+            <div class = "circle1"></div> <div class = "circle2"></div>
+        </div>
+    </div>
+
     <script type="importmap">
     {
         "imports": { "html2canvas": "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/+esm" }
     }
     </script>
-    <script type = "module" src = "/function.js"></script> <!-- if separate css file is used -->
+    <script type = "module" src = "function.js"></script> <!-- if separate css file is used -->
 </body>

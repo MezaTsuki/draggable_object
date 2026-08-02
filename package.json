@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/MezaTsuki/draggable_object#readme",
   "dependencies": {
-    "html2canvas": "^1.4.1"
-  },
-  "devDependencies": {}
+    "html2canvas": "^1.4.1",
+    "vite": "^8.1.5"
+  }
 }

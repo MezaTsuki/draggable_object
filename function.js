@@ -80,22 +80,39 @@ document.addEventListener("mousemove", event => {
     dragBox.style.paddingBottom = (Math.max(0, mouseDelayY - event.clientY)) + 'px';
 });
 
-// # SLIDE TRANSITION CONCEPT ___
-document.addEventListener("mousedown", event => {
+// # SLIDE TRANSITION CONCEPT_<-_<-_
+const themeButton = document.getElementById("themeButton");
+const lightTheme = document.getElementById("lightTheme");
+const darkTheme = document.getElementById("darkTheme");
+function switchTheme() {
+    if (lightTheme.checked == true) {
+        darkTheme.checked = true;
+        document.body.style.setProperty('--color1', 'white');
+        document.body.style.setProperty('--color2', 'black');
+    } else {
+        lightTheme.checked = true;
+        document.body.style.setProperty('--color1', 'black');
+        document.body.style.setProperty('--color2', 'white');
+    }
+}
 
+themeButton.addEventListener("mouseup", event => {
+
+    //? => Create Container ---
     const container = document.createElement('div');
     container.id = "screenbutt";
     container.style.cssText = `
-        position: fixed; top: 0;
+        position: fixed; top: 0; left: 0;
         overflow: hidden;
         height: 100%; width: 100%;
-        transition: 0.2s;
+        transition: 0.1s linear;
     `; 
     document.body.appendChild(container);
 
+    //? => Take Screenshot of Body ---
     html2canvas(document.body).then(canvas => {
-        const link = document.createElement('a');
 
+        //? => Create Image Element ---
         const img = new Image();
         img.src = canvas.toDataURL("image/png");
         img.alt = "screenshot";
@@ -108,6 +125,7 @@ document.addEventListener("mousedown", event => {
         let buttscreen = img;
         let screenbutt = container;
         
+        //? => Slide Animation ---
         let imgWidth = parseInt(windowProp.width);
         const slideInterval = imgWidth/10;
         const slideTran = setInterval(() => {
@@ -119,7 +137,7 @@ document.addEventListener("mousedown", event => {
             buttscreen.remove();
             screenbutt.remove();
             clearInterval(slideTran);
-        }, 1000);
+        }, 1100);
 
         /* todo:  ---DOWNLOAD LINES---
         *          link.download = 'whatever.png';
@@ -127,4 +145,7 @@ document.addEventListener("mousedown", event => {
         *          link.click();
         */ 
     });
+    setTimeout(() => {
+        switchTheme();
+    }, 200);
 });
