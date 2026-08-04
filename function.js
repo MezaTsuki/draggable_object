@@ -3,6 +3,7 @@ import html2canvas from 'html2canvas';
 const dragBox = document.getElementById("dragBox");
 let DBstyle = getComputedStyle(dragBox);
 let windowProp = getComputedStyle(document.body);
+
 let isHolding = false;
 let mouseStartPosX = 0;     
 let mouseStartPosY = 0;     
@@ -31,10 +32,11 @@ function setMouseNow() {
     mouseNowX = event.clientX;
     mouseNowY = event.clientY;
 }
-function clearTimers () {
+function clearTimers() {
     clearInterval(wobbleTimer);
 }
 
+let wobbleTimer = null;
 dragBox.addEventListener("mousedown", event => {
     isHolding = true;
     setMousePos();
@@ -42,11 +44,11 @@ dragBox.addEventListener("mousedown", event => {
     // console.log(mouseStartPosX, mouseStartPosY);
 
     // # --- WOBBLY UPDATE ---
-    dragBox.style.transition = '0.1s ease';
+    dragBox.style.transition = '0.1s';
     wobbleTimer = setInterval(() => {
         mouseDelayX = mouseNowX;
         mouseDelayY = mouseNowY;
-    }, 40);
+    }, 80);
 });
 document.addEventListener("mouseup", event => {
     isHolding = false;
@@ -55,13 +57,13 @@ document.addEventListener("mouseup", event => {
     clearTimers();
     dragBox.style.transition = '0.5s ease-out';
     dragBox.style.padding = '0px';
+    console.log("Mouse Up");
 });
 document.addEventListener("mouseleave", event => {
     isHolding = false;
 
     // # --- WOBBLY UPDATE ---
     clearTimers();
-    dragBox.style.transition = '0.5s ease-out';
     dragBox.style.padding = '0px';
 });
 
@@ -95,7 +97,6 @@ function switchTheme() {
         document.body.style.setProperty('--color2', 'white');
     }
 }
-
 themeButton.addEventListener("mouseup", event => {
 
     //? => Create Container ---
@@ -149,3 +150,24 @@ themeButton.addEventListener("mouseup", event => {
         switchTheme();
     }, 200);
 });
+
+// # -+-+- Size Adjustment -+-+-  
+const sizeUp = document.getElementById("sizeUp");
+const sizeDown = document.getElementById("sizeDown");
+
+sizeUp.onclick = function() {adjustSize(1);}
+sizeDown.onclick = function() {adjustSize(-1);}
+    
+function adjustSize (sizeChange) {
+    let boxWidth = parseInt(DBstyle.width);
+    let boxHeight = parseInt(DBstyle.height);
+    
+    boxWidth *= (1 + (0.2 * sizeChange));
+    boxHeight *= (1 + (0.2 * sizeChange));
+
+    if (!(boxHeight < 100)) {
+        dragBox.style.transition = 'height 0.15s ease, width 0.05s ease';
+        dragBox.style.setProperty('--boxWidth', boxWidth + 'px');
+        dragBox.style.setProperty('--boxHeight', boxHeight + 'px');
+    }
+}

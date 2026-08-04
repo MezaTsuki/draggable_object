@@ -70,7 +70,7 @@ body{
 }
 
 /* # THEME BUTTON */
-[type="radio"]{ display: none; }
+#lightTheme[type="radio"], #darkTheme[type="radio"]{ display: none; }
 #themeButton{
     height: 30px; width: 60px;
     margin: 25px 30px;
@@ -94,6 +94,40 @@ body{
         background: var(--fixedBlack);
         margin: 5px;
     }
+}
+
+/* # SIZE ADJUSTMENT */
+.sizeAdjust{
+    height: 30px; 
+    margin: 25px 30px;
+
+    display: flex; flex-direction: row;
+    justify-content: space-between; align-items: center;
+
+    h3{
+        color: var(--color1);
+        padding-right: 10px;
+    }
+    .sizeButtons{
+        height: 30px; width: 30px;
+        background: var(--color2);
+        color: var(--color1);
+        font-size: 1.1rem;
+
+        border: 2px solid var(--color1);
+        border-radius: 10px;
+
+        margin: 0 3px;
+        cursor: pointer;
+    }
+}
+.sizeButtons:active{
+    background: var(--color1);
+    color: var(--color2);
+}
+.sizeButtons:hover{
+    transform: scale(1.1);
+    transition: 0.1s;
 }
 
 
